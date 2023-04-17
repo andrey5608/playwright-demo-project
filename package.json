@@ -1,0 +1,15 @@
+{
+  "name": "playwright-demo-project",
+  "version": "1.0.0",
+  "description": "1. clone the repo\r 2. run `npm i` in terminal\r 3. run `npm run test` to run the tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "Andrei Petrov",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.32.3"
+  }
+}
