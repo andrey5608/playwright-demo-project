@@ -7,4 +7,4 @@
 
 ## License
 
-The code in this project is released under the [MIT License](LICENSE.md).
+The code in this project is released under the [MIT License](LICENSE).
