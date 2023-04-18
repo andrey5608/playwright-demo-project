@@ -4,7 +4,7 @@
     "description": "1. clone the repo\r 2. run `npm i` in terminal\r 3. run `npm run test` to run the tests",
     "main": "index.js",
     "scripts": {
-        "tests": "npx playwright test",
+        "test": "npx playwright test",
         "lint": "eslint --fix --ext .js,.ts .",
         "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
         "pre-commit": "npm run format && npm run lint"
