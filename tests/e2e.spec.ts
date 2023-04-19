@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { SkinLiquidsEnum } from '../enums/skin-liquids-enum';
+import { SpfTypesEnum } from '../enums/spf-types-enum';
 import { LiquidSelectionResult } from '../models/liquid-selection-result';
 import { CurrentTemperaturePage } from '../pages/current-temperature-page';
+import { SunscreensPage } from '../pages/sunscreens-page';
 
 test.describe('Test Weather Shopper', () => {
     let liquidSelectionResult: LiquidSelectionResult;
@@ -17,14 +19,21 @@ test.describe('Test Weather Shopper', () => {
     });
 
     test('Shop for suncreens if the weather is above 34 degrees', async ({
-        //page,
+        page,
     }) => {
         test.skip(
             liquidSelectionResult.skinLiquidsEnum !==
                 SkinLiquidsEnum.Sunscreens,
             'Temperature is not compatible to test sunscreens'
         );
+
+        const sunscreensPage = new SunscreensPage(page);
+        await sunscreensPage.addCheapestSunscreenWithSpf(SpfTypesEnum.SPF50);
+        await sunscreensPage.addCheapestSunscreenWithSpf(SpfTypesEnum.SPF30);
+        await sunscreensPage.goToCart();
+
         console.log('buy sunscreens works');
+
         expect(true).toBeTruthy();
     });
 
