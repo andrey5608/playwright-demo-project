@@ -14,7 +14,7 @@ test.describe('Test Weather Shopper', () => {
         liquidSelectionResult =
             await currentTemperaturePage.tryToSelectProperLiquid();
         test.fail(
-            !liquidSelectionResult.success,
+            !liquidSelectionResult.isPossible,
             'Can not select any liquid basing on current temperature. Failing...'
         );
     });
