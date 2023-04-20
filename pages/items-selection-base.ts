@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { Item } from '../models/item';
+import { ListItem } from '../models/list-item';
 
 export class ItemsSelectionBase {
     readonly page: Page;
@@ -16,8 +16,8 @@ export class ItemsSelectionBase {
         this.items = page.locator('div.container > div.top-space-50 > div');
     }
 
-    async getOrderedByAscItems(): Promise<Item[]> {
-        const items = (await this.items.all()).map((x) => new Item(x));
+    async getOrderedByAscItems(): Promise<ListItem[]> {
+        const items = (await this.items.all()).map((x) => new ListItem(x));
         for (const item of items) {
             await item.fillItemProps();
         }

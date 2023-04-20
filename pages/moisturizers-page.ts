@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { ListItem } from '../models/list-item';
 import { ItemsSelectionBase } from './items-selection-base';
 
 export class MoisturizersPage extends ItemsSelectionBase {
@@ -10,7 +11,7 @@ export class MoisturizersPage extends ItemsSelectionBase {
         this.page = page;
     }
 
-    async addCheapestMoisturizerWithIngredient(ingredient: string) {
+    async addCheapestMoisturizerWithIngredient(ingredient: string): Promise<ListItem> {
         const items = await this.getOrderedByAscItems();
 
         const cheapestMoisturizer = items.find((x) =>
@@ -24,5 +25,6 @@ export class MoisturizersPage extends ItemsSelectionBase {
         }
 
         await cheapestMoisturizer.addToCart();
+        return cheapestMoisturizer;
     }
 }

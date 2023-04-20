@@ -5,6 +5,8 @@ import { LiquidSelectionResult } from '../models/liquid-selection-result';
 import { CurrentTemperaturePage } from '../pages/current-temperature-page';
 import { SunscreensPage } from '../pages/sunscreens-page';
 import { MoisturizersPage } from '../pages/moisturizers-page';
+import { ShoppingCartPage } from '../pages/shopping-cart-page';
+import { ListItem } from '../models/list-item';
 
 test.describe('Test Weather Shopper', () => {
     let liquidSelectionResult: LiquidSelectionResult;
@@ -29,9 +31,14 @@ test.describe('Test Weather Shopper', () => {
         );
 
         const sunscreensPage = new SunscreensPage(page);
-        await sunscreensPage.addCheapestSunscreenWithSpf(SpfTypesEnum.SPF50);
-        await sunscreensPage.addCheapestSunscreenWithSpf(SpfTypesEnum.SPF30);
+        let selectedSunscreens = new Array<ListItem>();
+        selectedSunscreens.push(await sunscreensPage.addCheapestSunscreenWithSpf(SpfTypesEnum.SPF50));
+        selectedSunscreens.push(await sunscreensPage.addCheapestSunscreenWithSpf(SpfTypesEnum.SPF30));
         await sunscreensPage.goToCart();
+
+        const shoppingCartPage = new ShoppingCartPage(page);
+        await shoppingCartPage.verifyItems(selectedSunscreens);
+        await shoppingCartPage.pressPayWithCard();
 
         console.log('buy sunscreens works');
 
@@ -48,9 +55,14 @@ test.describe('Test Weather Shopper', () => {
         );
 
         const moisturizersPage = new MoisturizersPage(page);
-        await moisturizersPage.addCheapestMoisturizerWithIngredient('Aloe');
-        await moisturizersPage.addCheapestMoisturizerWithIngredient('almond');
+        let selectedMoisturizers = new Array<ListItem>();
+        selectedMoisturizers.push(await moisturizersPage.addCheapestMoisturizerWithIngredient('Aloe'));
+        selectedMoisturizers.push(await moisturizersPage.addCheapestMoisturizerWithIngredient('almond'));
         await moisturizersPage.goToCart();
+
+        const shoppingCartPage = new ShoppingCartPage(page);
+        await shoppingCartPage.verifyItems(selectedMoisturizers);
+        await shoppingCartPage.pressPayWithCard();
 
         console.log('buy moisturizers works');
         expect(true).toBeTruthy();
