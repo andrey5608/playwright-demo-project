@@ -2,19 +2,21 @@ import { Locator } from 'playwright-core';
 import { SpfTypesEnum } from '../enums/spf-types-enum';
 
 export class Item {
-    readonly title: Locator;
+    readonly titleElement: Locator;
     readonly priceInfo: Locator;
     readonly buyButton: Locator;
     spfType: SpfTypesEnum;
     price: number;
+    title: string;
 
     constructor(itemLocator: Locator) {
-        this.title = itemLocator.locator('p').first();
+        this.titleElement = itemLocator.locator('p').first();
         this.priceInfo = itemLocator.locator('//p[not(@class)]');
         this.buyButton = itemLocator.locator('button');
     }
 
-    async fillTypeAndPrice() {
+    async fillItemProps() {
+        this.title = await this.titleElement.innerText();
         this.spfType = await this.getSpfType();
         this.price = await this.getPrice();
     }
@@ -25,10 +27,8 @@ export class Item {
     }
 
     async getSpfType() {
-        const priceAndCurrency = await this.title.innerText();
-
         let spfType: SpfTypesEnum;
-        const match = priceAndCurrency.match(/.*(SPF|spf)-(\d+).*/);
+        const match = this.title.match(/.*(SPF|spf)-(\d+).*/);
 
         if (match === null || match.length < 3) {
             return SpfTypesEnum.Unknown;
