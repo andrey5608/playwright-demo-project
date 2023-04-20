@@ -1,15 +1,15 @@
 import { Locator } from 'playwright-core';
 import { SpfTypesEnum } from '../enums/spf-types-enum';
+import { ItemBase } from './item-base';
 
-export class Item {
+export class ListItem extends ItemBase {
     readonly titleElement: Locator;
     readonly priceInfo: Locator;
     readonly buyButton: Locator;
     spfType: SpfTypesEnum;
-    price: number;
-    title: string;
 
     constructor(itemLocator: Locator) {
+        super();
         this.titleElement = itemLocator.locator('p').first();
         this.priceInfo = itemLocator.locator('//p[not(@class)]');
         this.buyButton = itemLocator.locator('button');
