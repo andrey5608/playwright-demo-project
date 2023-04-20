@@ -16,9 +16,13 @@ export class ItemsSelectionBase {
         this.items = page.locator('div.container > div.top-space-50 > div');
     }
 
-    async getItems(): Promise<Item[]> {
-        const items = await this.items.all();
-        return items.map((x) => new Item(x));
+    async getOrderedByAscItems(): Promise<Item[]> {
+        const items = (await this.items.all()).map((x) => new Item(x));
+        for (const item of items) {
+            await item.fillItemProps();
+        }
+        items.sort((a, b) => a.price - b.price);
+        return items;
     }
 
     async goToCart() {

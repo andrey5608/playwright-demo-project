@@ -4,6 +4,7 @@ import { SpfTypesEnum } from '../enums/spf-types-enum';
 import { LiquidSelectionResult } from '../models/liquid-selection-result';
 import { CurrentTemperaturePage } from '../pages/current-temperature-page';
 import { SunscreensPage } from '../pages/sunscreens-page';
+import { MoisturizersPage } from '../pages/moisturizers-page';
 
 test.describe('Test Weather Shopper', () => {
     let liquidSelectionResult: LiquidSelectionResult;
@@ -12,16 +13,16 @@ test.describe('Test Weather Shopper', () => {
         await currentTemperaturePage.goto();
         liquidSelectionResult =
             await currentTemperaturePage.tryToSelectProperLiquid();
-        test.skip(
+        test.fail(
             !liquidSelectionResult.success,
-            'Can not select any liquid basing on current temperature. Skipping...'
+            'Can not select any liquid basing on current temperature. Failing...'
         );
     });
 
     test('Shop for suncreens if the weather is above 34 degrees', async ({
         page,
     }) => {
-        test.skip(
+        test.fail(
             liquidSelectionResult.skinLiquidsEnum !==
                 SkinLiquidsEnum.Sunscreens,
             'Temperature is not compatible to test sunscreens'
@@ -38,13 +39,19 @@ test.describe('Test Weather Shopper', () => {
     });
 
     test('Shop for moisturizers if the weather is below 19 degrees', async ({
-        //page,
+        page,
     }) => {
-        test.skip(
+        test.fail(
             liquidSelectionResult.skinLiquidsEnum !==
                 SkinLiquidsEnum.Moisturizers,
             'Temperature is not compatible to test moisturizers'
         );
+
+        const moisturizersPage = new MoisturizersPage(page);
+        await moisturizersPage.addCheapestMoisturizerWithIngredient('Aloe');
+        await moisturizersPage.addCheapestMoisturizerWithIngredient('almond');
+        await moisturizersPage.goToCart();
+
         console.log('buy moisturizers works');
         expect(true).toBeTruthy();
     });

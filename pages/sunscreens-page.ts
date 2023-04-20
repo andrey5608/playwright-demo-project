@@ -12,18 +12,13 @@ export class SunscreensPage extends ItemsSelectionBase {
     }
 
     async addCheapestSunscreenWithSpf(spfType: SpfTypesEnum) {
-        const items = await this.getItems();
+        const items = await this.getOrderedByAscItems();
 
-        for (const item of items) {
-            await item.fillTypeAndPrice();
-        }
-
-        items.sort((a, b) => a.price - b.price);
         const cheapestSpf = items.find((x) => x.spfType === spfType);
 
         if (cheapestSpf === undefined) {
             throw new Error(
-                `Can not find cheapest SPF by spfType - ${spfType}`
+                `Can not find cheapest SPF by spfType - ${SpfTypesEnum[spfType]}`
             );
         }
 
