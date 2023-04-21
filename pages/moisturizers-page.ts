@@ -4,7 +4,6 @@ import { ItemsSelectionBase } from './items-selection-base';
 
 export class MoisturizersPage extends ItemsSelectionBase {
     readonly page: Page;
-    readonly expectedTitle = 'Moisturizers';
 
     constructor(page: Page) {
         super(page);

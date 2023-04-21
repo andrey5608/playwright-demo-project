@@ -2,12 +2,6 @@ import { defineConfig, devices } from '@playwright/test';
 import { Timeouts } from './enums/timeouts-enum';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
@@ -18,7 +12,7 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: 3,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? 1 : undefined, //TODO fix later
+    workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: 'html',
     timeout: Timeouts.Global,

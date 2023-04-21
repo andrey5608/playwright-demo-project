@@ -20,10 +20,10 @@ export class StipePaymentWidget {
     }
 
     async waitForConfirmation() {
+        // wait for the confirmation request
         await this.page.waitForResponse(
             (response) =>
-                response.url() ===
-                    'https://weathershopper.pythonanywhere.com/confirmation' &&
+                response.url().includes('/confirmation') &&
                 response.request().method() === 'POST'
         );
     }

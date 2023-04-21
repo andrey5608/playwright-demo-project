@@ -5,7 +5,6 @@ import { ItemsSelectionBase } from './items-selection-base';
 
 export class SunscreensPage extends ItemsSelectionBase {
     readonly page: Page;
-    readonly expectedTitle = 'Sunscreens';
 
     constructor(page: Page) {
         super(page);

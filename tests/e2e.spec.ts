@@ -18,7 +18,7 @@ test.describe('Test Weather Shopper', () => {
         liquidSelectionResult =
             await currentTemperaturePage.tryToSelectProperLiquid();
         test.fail(
-            !liquidSelectionResult.isPossible,
+            !liquidSelectionResult.isPossibleToChooseTheLiquidType,
             'Can not select any liquid basing on current temperature. Failing...'
         );
     });
@@ -29,7 +29,7 @@ test.describe('Test Weather Shopper', () => {
         test.fail(
             liquidSelectionResult.skinLiquidsEnum !==
                 SkinLiquidsEnum.Sunscreens,
-            'Temperature is not compatible to test sunscreens'
+            'Temperature is not compatible to test sunscreens. Failing...'
         );
 
         const sunscreensPage = new SunscreensPage(page);
@@ -59,7 +59,7 @@ test.describe('Test Weather Shopper', () => {
         test.fail(
             liquidSelectionResult.skinLiquidsEnum !==
                 SkinLiquidsEnum.Moisturizers,
-            'Temperature is not compatible to test moisturizers'
+            'Temperature is not compatible to test moisturizers. Failing...'
         );
 
         const moisturizersPage = new MoisturizersPage(page);
