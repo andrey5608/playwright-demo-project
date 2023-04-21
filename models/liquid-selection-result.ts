@@ -2,10 +2,13 @@ import { SkinLiquidsEnum } from '../enums/skin-liquids-enum';
 
 export class LiquidSelectionResult {
     readonly skinLiquidsEnum?: SkinLiquidsEnum;
-    isPossible: boolean;
+    isPossibleToChooseTheLiquidType: boolean;
 
-    constructor(isPossible: boolean, skinLiquidsEnum?: SkinLiquidsEnum) {
+    constructor(
+        isPossibleToChooseTheLiquidType: boolean,
+        skinLiquidsEnum?: SkinLiquidsEnum
+    ) {
         this.skinLiquidsEnum = skinLiquidsEnum;
-        this.isPossible = isPossible;
+        this.isPossibleToChooseTheLiquidType = isPossibleToChooseTheLiquidType;
     }
 }

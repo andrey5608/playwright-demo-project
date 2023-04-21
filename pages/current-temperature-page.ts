@@ -23,26 +23,32 @@ export class CurrentTemperaturePage {
     }
 
     async getTemperature() {
-        const sup = await this.currentTemperature.locator('sup').innerText();
-        const temperature = (await this.currentTemperature.innerText()).replace(
-            sup,
-            ''
-        );
+        const temperatureWithCelsiusSign =
+            await this.currentTemperature.innerText();
+        const celsiusSign = await this.currentTemperature
+            .locator('sup')
+            .innerText();
+        const temperature = temperatureWithCelsiusSign.replace(celsiusSign, '');
         return Number(temperature);
     }
 
     async tryToSelectProperLiquid(): Promise<LiquidSelectionResult> {
         const temperature = await this.getTemperature();
+        // Shop for moisturizers if the weather is below 19 degrees.
         if (temperature < 19) {
             await this.moisturizersButton.click();
             return new LiquidSelectionResult(
                 true,
                 SkinLiquidsEnum.Moisturizers
             );
-        } else if (temperature > 34) {
+        }
+        // Shop for suncreens if the weather is above 34 degrees.
+        else if (temperature > 34) {
             await this.sunscreensButton.click();
             return new LiquidSelectionResult(true, SkinLiquidsEnum.Sunscreens);
-        } else {
+        }
+        // Otherwise, indicate that the test cannot be continued
+        else {
             return new LiquidSelectionResult(false);
         }
     }

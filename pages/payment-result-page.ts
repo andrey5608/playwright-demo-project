@@ -16,9 +16,9 @@ export class PaymentResultPage {
     }
 
     async verifySuccessfulPayment() {
-        expect(this.title).toHaveText(this.successTitle, {
-            timeout: Timeouts.ExpectLongWait,
+        await expect(this.title).toHaveText(this.successTitle, {
+            timeout: Timeouts.LongWait,
         }); // it can take some time to wait for the page loading
-        expect(this.message).toHaveText(this.successMessage);
+        await expect(this.message).toHaveText(this.successMessage);
     }
 }
