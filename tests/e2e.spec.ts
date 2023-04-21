@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { SkinLiquidsEnum } from '../enums/skin-liquids-enum';
 import { SpfTypesEnum } from '../enums/spf-types-enum';
 import { LiquidSelectionResult } from '../models/liquid-selection-result';
@@ -8,6 +8,7 @@ import { MoisturizersPage } from '../pages/moisturizers-page';
 import { ShoppingCartPage } from '../pages/shopping-cart-page';
 import { ListItem } from '../models/list-item';
 import { StipePaymentWidget } from '../pages/stripe-payment-widget';
+import { PaymentResultPage } from '../pages/payment-result-page';
 
 test.describe('Test Weather Shopper', () => {
     let liquidSelectionResult: LiquidSelectionResult;
@@ -48,9 +49,8 @@ test.describe('Test Weather Shopper', () => {
         const stripeWidget = new StipePaymentWidget(page);
         await stripeWidget.payByCard();
 
-        console.log('buy sunscreens works');
-
-        expect(true).toBeTruthy();
+        const paymentResultPage = new PaymentResultPage(page);
+        await paymentResultPage.verifySuccessfulPayment();
     });
 
     test('Shop for moisturizers if the weather is below 19 degrees', async ({
@@ -81,7 +81,7 @@ test.describe('Test Weather Shopper', () => {
         const stripeWidget = new StipePaymentWidget(page);
         await stripeWidget.payByCard();
 
-        console.log('buy moisturizers works');
-        expect(true).toBeTruthy();
+        const paymentResultPage = new PaymentResultPage(page);
+        await paymentResultPage.verifySuccessfulPayment();
     });
 });
