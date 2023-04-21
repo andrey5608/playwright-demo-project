@@ -12,7 +12,9 @@ export class SunscreensPage extends ItemsSelectionBase {
         this.page = page;
     }
 
-    async addCheapestSunscreenWithSpf(spfType: SpfTypesEnum): Promise<ListItem> {
+    async addCheapestSunscreenWithSpf(
+        spfType: SpfTypesEnum
+    ): Promise<ListItem> {
         const items = await this.getOrderedByAscItems();
 
         const cheapestSpf = items.find((x) => x.spfType === spfType);
