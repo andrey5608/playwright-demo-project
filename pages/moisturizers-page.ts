@@ -11,7 +11,9 @@ export class MoisturizersPage extends ItemsSelectionBase {
         this.page = page;
     }
 
-    async addCheapestMoisturizerWithIngredient(ingredient: string): Promise<ListItem> {
+    async addCheapestMoisturizerWithIngredient(
+        ingredient: string
+    ): Promise<ListItem> {
         const items = await this.getOrderedByAscItems();
 
         const cheapestMoisturizer = items.find((x) =>

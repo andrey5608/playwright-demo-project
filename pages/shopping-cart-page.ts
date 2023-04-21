@@ -1,6 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { CartItem } from '../models/cart-item';
-import { ItemBase } from '../models/item-base';
 import { ListItem } from '../models/list-item';
 
 export class ShoppingCartPage {
@@ -18,7 +17,9 @@ export class ShoppingCartPage {
     }
 
     async getOrderedByAscItems(): Promise<CartItem[]> {
-        const items = (await this.itemElements.all()).map((x) => new CartItem(x));
+        const items = (await this.itemElements.all()).map(
+            (x) => new CartItem(x)
+        );
         for (const item of items) {
             await item.fillItemProps();
         }
@@ -26,19 +27,18 @@ export class ShoppingCartPage {
         return items;
     }
 
-    async verifyItems(listItems: ListItem[]){
-        let cartItems = await this.getOrderedByAscItems();//sort cart items
-        listItems = listItems.sort((a,b) => a.price - b.price);//sort list items
+    async verifyItems(listItems: ListItem[]) {
+        const cartItems = await this.getOrderedByAscItems(); //sort cart items
+        listItems = listItems.sort((a, b) => a.price - b.price); //sort list items
+
         expect(cartItems.length).toBe(listItems.length);
         for (let index = 0; index < cartItems.length; index++) {
-            const cartItem = cartItems[index];
-            const listItem = listItems[index];
-            expect(cartItem.price).toBe(listItem.price);
-            expect(cartItem.title).toBe(cartItem.title);
+            expect(cartItems[index].price).toBe(listItems[index].price);
+            expect(cartItems[index].title).toBe(listItems[index].title);
         }
     }
 
-    async pressPayWithCard(){
+    async pressPayWithCard() {
         await this.payWithCardButton.click();
     }
 }

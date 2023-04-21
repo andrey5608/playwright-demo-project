@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "npx playwright test",
-        "lint": "eslint --fix --ext .js,.ts .",
+        "lint": "eslint --ext .js,.ts .",
         "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
         "pre-commit": "npm run format && npm run lint"
     },
