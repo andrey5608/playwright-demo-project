@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  web:
+    image: mcr.microsoft.com/playwright:v1.32.3-jammy
+    container_name: docker-playwright
+    ipc: host
+    user: root
+    environment:
+      - DISPLAY=:0 # replace to host.docker.internal:0 on MacOS
+    volumes: 
+      - ./:/app
+    command: sh -c "
+      cd app
+      && npm install
+      && HOME=/root npm run test"
