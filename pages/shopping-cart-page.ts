@@ -26,13 +26,13 @@ export class ShoppingCartPage {
         return items;
     }
 
-    async getTotalAmount() {
+    async getTotalAmount(): Promise<string> {
         const totalText = await this.total.innerText();
         const totalAmountMatch = totalText.match(/Total:.*\s(\d+)/);
         if (totalAmountMatch === null || totalAmountMatch.length < 2) {
             throw new Error('Can not extract total amount');
         }
-        return totalAmountMatch[1]; // return the number only
+        return totalAmountMatch[1].toString(); // return the number only
     }
 
     async verifyItems(listItems: ListItem[]) {
@@ -43,7 +43,7 @@ export class ShoppingCartPage {
             .reduce((a, b) => a + b);
         const listItemsSum = listItems
             .map((i) => i.price)
-            .reduce((a, b) => a + b);
+            .reduce((a, b) => a + b).toString();
         const totalAmount = await this.getTotalAmount();
 
         // check that we have the same number of items
