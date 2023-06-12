@@ -14,8 +14,9 @@ This is a test assignment, a demo project where you can find some tests for the 
 - clone the repo
 - run `npm i` in terminal
 - run `npm run test` to start the test run
-=======
+
 ### Without Docker
+
 1. clone the repo
 2. run `npm i` in terminal
 3. run `npm run test` to run the tests
