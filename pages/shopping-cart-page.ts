@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { getItemArraySumAsString } from '../helpers/array-helper';
 import { CartItem } from '../models/cart-item';
 import { ListItem } from '../models/list-item';
 
@@ -38,12 +39,8 @@ export class ShoppingCartPage {
     async verifyItems(listItems: ListItem[]) {
         const cartItems = await this.getOrderedByAscItems(); //sort cart items
         listItems = listItems.sort((a, b) => a.price - b.price); //sort list items
-        const cartItemsSum = cartItems
-            .map((i) => i.price)
-            .reduce((a, b) => a + b);
-        const listItemsSum = listItems
-            .map((i) => i.price)
-            .reduce((a, b) => a + b).toString();
+        const cartItemsSum = getItemArraySumAsString(cartItems);
+        const listItemsSum = getItemArraySumAsString(listItems);
         const totalAmount = await this.getTotalAmount();
 
         // check that we have the same number of items
@@ -54,6 +51,7 @@ export class ShoppingCartPage {
             expect(cartItems[index].price).toBe(listItems[index].price);
             expect(cartItems[index].title).toBe(listItems[index].title);
         }
+
         // check amounts
         expect(listItemsSum).toBe(totalAmount);
         expect(cartItemsSum).toBe(totalAmount);
